@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+    }
+
+    .search-bar {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .search-bar input {
+        width: 80%;
+        max-width: 400px;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 25px;
+        outline: none;
+        font-size: 1em;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #car-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .car {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+    }
+
+    .car:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .car img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .nom {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin: 10px 0;
+        color: #333;
+    }
+
+    .car a {
+        display: block;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .car a:hover {
+        color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+        .search-bar input {
+            width: 90%;
+        }
+    }
+</style>
+
+<!-- Barre de recherche -->
+<div class="search-bar">
+    <input type="text" id="search-input" placeholder="Rechercher par nom...">
+</div>
+  <h2 class="nom">Choisissez la catégorie de votre domaine</h2>
+
+<!-- Liste des voitures -->
+<div id="car-list">
+    {% for categorie in categories %}
+    <div class="car">
+        <h2 class="nom">{{ categorie.libelle }}</h2>
+        {% if categorie.image %}
+            <a href="{{ categorie.get_absolute_url }}">
+                <img src="{{ categorie.image.url }}" alt="{{ categorie.libelle }}">
+            </a>
+        {% else %}
+            <a href="{{ categorie.get_absolute_url }}">Plus de détails</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+<script>
+    document.getElementById('search-input').addEventListener('keyup', function () {
+        let input = this.value.toLowerCase();
+        let cars = document.querySelectorAll('.car');
+
+        cars.forEach(function (car) {
+            let carName = car.querySelector('.nom')?.innerText.toLowerCase() || '';
+            car.style.display = carName.includes(input) ? "" : "none";
+        });
+    });
+</script>

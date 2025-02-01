@@ -1,0 +1,59 @@
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Freelance Link</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>
+                <a href="">
+                    <!--img src="{% static 'main/images/img.png' %}" alt="Logo de l'agence"-->
+                </a>
+            </h1>
+            <nav>
+                <ul>
+                    <li><a href="">Nos Services</a></li>
+                    <li><a href="">Offres</a></li>
+                    <li><a href="">Contrats</a></li>
+                    <li><a href="tel:+22890122357">WhatsApp</a></li>
+                    <li><a href="mailto:elonovacar@gmail.com">Email</a></li>
+                </ul>
+                <ul>
+                    <li>
+                        <div class="auth-links">
+                            <!--
+                            {% if user.is_authenticated %}
+                                <span>{{ user.username }}</span>
+                                <a href="">Déconnexion</a>
+                            {% else %}
+                                <a href="{% url 'login' %}">Connexion</a>
+                                <a href="{% url 'signup' %}">S'inscrire</a>
+                            {% endif %}-->
+
+                            <a href="">Connexion</a>
+                            <a href="">S'inscrire</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+
+</body>
+<footer>
+        <p>&copy; 2024 Freelance link - Tous droits réservés</p>
+        <p>Tél : (+228) 99 83 45 48 / 90 12 23 57</p>
+</footer>
+</html>

@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Offres d'emploi{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f7fa;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.5em;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .search-bar {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .search-bar input {
+        width: 80%;
+        max-width: 500px;
+        padding: 12px;
+        border: 2px solid #007bff;
+        border-radius: 25px;
+        font-size: 1em;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .search-bar input:focus {
+        border-color: #0056b3;
+        box-shadow: 0 0 10px rgba(0, 91, 187, 0.3);
+    }
+
+    #car-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .car {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+    }
+
+    .car:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .car h2 {
+        font-size: 1.5em;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .car p {
+        font-size: 1em;
+        color: #555;
+        margin: 5px 0;
+    }
+
+    .car a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 15px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .car a:hover {
+        background: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+        .search-bar input {
+            width: 90%;
+        }
+    }
+</style>
+
+<h1>Les Offres d'Emploi</h1>
+
+<!-- Barre de recherche -->
+<div class="search-bar">
+    <input type="text" id="search-input" placeholder="Rechercher par nom, description, rémunération...">
+</div>
+
+<!-- Liste des offres -->
+<div id="car-list">
+    {% if offres %}
+    {% for offre in offres %}
+
+    <div class="car" data-search="{{ offre.nom|lower }} {{ offre.description|lower }} {{ offre.renumeration_min }} {{ offre.renumeration_max }}">
+        <h2>{{ offre.nom }}</h2>
+        <p><strong>Description :</strong> {{ offre.description }}</p>
+        <p><strong>Rémunération de base :</strong> {{ offre.renumeration_min }} F CFA</p>
+        <p><strong>Rémunération maximale :</strong> {{ offre.renumeration_max }} F CFA</p>
+        <a href="{{ offre.get_absolute_url }}">Plus de détails</a>
+    </div>
+     {% endfor %}
+    {% else %}
+    <h2>Aucune offre pour cette catégorie</h2>
+
+    {% endif %}
+
+</div>
+
+<script>
+    document.getElementById('search-input').addEventListener('keyup', function () {
+        let input = this.value.toLowerCase();
+        let offers = document.querySelectorAll('.car');
+
+        offers.forEach(function (offer) {
+            let searchText = offer.getAttribute('data-search');
+            offer.style.display = searchText.includes(input) ? "" : "none";
+        });
+    });
+</script>
+
+{% endblock %}
