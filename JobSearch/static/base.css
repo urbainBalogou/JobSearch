@@ -1,135 +1,142 @@
 /* Global Styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f4; /* Couleur de fond douce */
-            color: #333;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-        /* Header Styles */
-        header {
-            background-color: rgba(0, 0, 0, 0.85); /* Plus sombre pour un meilleur contraste */
-            padding: 15px 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
+/* Permet au contenu de prendre toute la hauteur et pousse le footer en bas */
+main {
+    flex: 1;
+}
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap; /* Permet aux éléments de passer à la ligne sur des écrans plus petits */
-        }
+/* Header Styles */
+header {
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 15px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap; /* Permet aux éléments de passer à la ligne sur des écrans plus petits */
-        }
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
-        nav ul li {
-            margin-right: 20px; /* Réduction de la marge pour une apparence plus compacte */
-        }
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            padding: 10px 15px;
-            border-radius: 5px; /* Coins arrondis pour un look moderne */
-        }
+nav ul li {
+    margin-right: 20px;
+}
 
-        nav ul li a:hover {
-            background-color: rgba(255, 170, 0, 0.7);
-            color: black;
-        }
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
 
-        /* Footer Styles */
-        footer {
-            background-color: #222;
-            color: white;
-            text-align: center;
+nav ul li a:hover {
+    background-color: rgba(255, 170, 0, 0.7);
+    color: black;
+}
 
-            padding: 20px 15px;
-            position: relative;
-            margin-bottom: 500px;
-            width: 100%;
-        }
+/* Footer Styles */
+footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 20px 15px;
+    width: 100%;
+    position: relative;
+}
 
-        footer p {
-            margin: 5px 0;
-            font-size: 0.9rem;
-        }
+footer p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
 
-        /* Auth Links Styles */
-        .auth-links {
-            display: flex;
-            align-items: center;
-        }
+/* Auth Links Styles */
+.auth-links {
+    display: flex;
+    align-items: center;
+}
 
-        .auth-links span {
-            color: white;
-            margin-right: 10px;
-        }
+.auth-links span {
+    color: white;
+    margin-right: 10px;
+}
 
-        .auth-links a {
-            color: white;
-            font-weight: 500;
-            text-transform: uppercase;
-            text-decoration: none;
-            padding: 8px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+.auth-links a {
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
 
-        .auth-links a:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            color: #FFAA00;
-        }
+.auth-links a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #FFAA00;
+}
 
-        /* Image Styles */
-        img {
-            max-width: 200px; /* Réduction de la taille de l'image pour les écrans plus petits */
-            margin: 0 auto;
-            display: block;
-        }
+/* Image Styles */
+img {
+    max-width: 200px;
+    margin: 0 auto;
+    display: block;
+}
 
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column; /* Empile les éléments en colonne sur les petits écrans */
-                align-items: flex-start; /* Alignement à gauche */
-            }
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-            nav ul {
-                flex-direction: column; /* Menu vertical sur les petits écrans */
-                width: 100%; /* Prendre toute la largeur */
-            }
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
 
-            nav ul li {
-                margin-bottom: 10px; /* Espacement entre les éléments du menu */
-                margin-right: 0; /* Réinitialiser la marge droite pour les petits écrans */
-            }
+    nav ul li {
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
 
-            footer {
-                font-size: 0.8rem; /* Réduire la taille de la police du footer sur les petits écrans */
-            }
+    footer {
+        font-size: 0.8rem;
+    }
 
-            img {
-                max-width: 150px; /* Ajustement de la taille de l'image pour les petits écrans */
-            }
-        }
+    img {
+        max-width: 150px;
+    }
+}
 
-        @media (max-width: 480px) {
-            nav ul li {
-                margin-bottom: 5px; /* Réduire l'espacement entre les éléments du menu */
-            }
+@media (max-width: 480px) {
+    nav ul li {
+        margin-bottom: 5px;
+    }
 
-            footer p {
-                font-size: 0.7rem; /* Réduction de la taille de la police du footer pour les très petits écrans */
-            }
-        }
+    footer p {
+        font-size: 0.7rem;
+    }
+}

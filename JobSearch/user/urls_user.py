@@ -14,19 +14,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include
-from offers import views
-from JobSearch import settings
+
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.index,name="index"),
-    path('categorie/', views.getCategorie,name="categorie"),
-    path('categorie/<int:id>/', views.getOffre,name="offres"),
-    path('', include('user.urls_user')),
+    path('-type-compte/', views.choose_account_type, name='choose_account_type'),
     # Ajoute ici les URL de redirection pour les comptes candidats et recruteurs
-    path('', include('user.urls_user')),
-    #path('recruteur-inscription/', views.recruteur_registration, name='recruteur_registration'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('candidat-inscription/', views.candidat_registration, name='candidat_registration'),
+    path('recruteur-inscription/', views.recruteur_registration, name='recruteur_registration'),
+]

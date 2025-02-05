@@ -3,114 +3,182 @@
 
 {% block content %}
 <style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #f4f4f4;
-    }
+/* Global */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
 
-    .search-bar {
-        text-align: center;
-        margin-bottom: 20px;
+/* Barre de recherche */
+.search-bar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Liste des catégories */
+#car-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.car {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.car:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Images */
+.car img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Titres */
+.nom {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Liens */
+.car a {
+    display: block;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.car a:hover {
+    color: #0056b3;
+}
+
+/* Pagination */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background: #0056b3;
+}
+
+.pagination .current {
+    padding: 10px 15px;
+    margin: 5px;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    #car-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
+    }
+}
+
+@media (max-width: 768px) {
+    #car-list {
+        grid-template-columns: repeat(1, 1fr); /* 1 colonne sur mobile */
     }
 
     .search-bar input {
-        width: 80%;
-        max-width: 400px;
-        padding: 12px;
-        border: 2px solid #ddd;
-        border-radius: 25px;
-        outline: none;
-        font-size: 1em;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 90%;
     }
-
-    #car-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    .car {
-        background: white;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-        text-align: center;
-    }
-
-    .car:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .car img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        margin-bottom: 10px;
-    }
-
-    .nom {
-        font-size: 1.2em;
-        font-weight: bold;
-        margin: 10px 0;
-        color: #333;
-    }
-
-    .car a {
-        display: block;
-        text-decoration: none;
-        color: #007bff;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-
-    .car a:hover {
-        color: #0056b3;
-    }
-
-    @media (max-width: 768px) {
-        .search-bar input {
-            width: 90%;
-        }
-    }
+}
 </style>
 
 <!-- Barre de recherche -->
 <div class="search-bar">
     <input type="text" id="search-input" placeholder="Rechercher par nom...">
 </div>
-  <h2 class="nom">Choisissez la catégorie de votre domaine</h2>
 
-<!-- Liste des voitures -->
+<h2 class="nom">Choisissez la catégorie de votre domaine</h2>
+
+<!-- Liste des catégories -->
 <div id="car-list">
-    {% for categorie in categories %}
-    <div class="car">
-        <h2 class="nom">{{ categorie.libelle }}</h2>
-        {% if categorie.image %}
-            <a href="{{ categorie.get_absolute_url }}">
-                <img src="{{ categorie.image.url }}" alt="{{ categorie.libelle }}">
-            </a>
-        {% else %}
-            <a href="{{ categorie.get_absolute_url }}">Plus de détails</a>
-        {% endif %}
-    </div>
-    {% endfor %}
+    {% if page_obj %}
+
+        {% for categorie in page_obj %}
+            <div class="car">
+                <h2 class="nom">{{ categorie.libelle }}</h2>
+                {% if categorie.image %}
+                    <a href="{{ categorie.get_absolute_url }}">
+                        <img src="{{ categorie.image.url }}" alt="{{ categorie.libelle }}">
+                    </a>
+                {% else %}
+                    <a href="{{ categorie.get_absolute_url }}">Plus de détails</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <h2>Aucune catégorie créée</h2>
+    {% endif %}
 </div>
+
+<!-- Pagination -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">Première</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Précédente</a>
+    {% endif %}
+
+    <span class="current">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Suivante</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Dernière</a>
+    {% endif %}
+</div>
+
 {% endblock %}
-
 <script>
-    document.getElementById('search-input').addEventListener('keyup', function () {
-        let input = this.value.toLowerCase();
-        let cars = document.querySelectorAll('.car');
+document.getElementById('search-input').addEventListener('keyup', function () {
+    let input = this.value.toLowerCase().trim();
+    let cars = document.querySelectorAll('.car');
 
-        cars.forEach(function (car) {
-            let carName = car.querySelector('.nom')?.innerText.toLowerCase() || '';
+    cars.forEach(function (car) {
+        let carNameElement = car.querySelector('.nom');
+        if (carNameElement) {
+            let carName = carNameElement.innerText.toLowerCase();
             car.style.display = carName.includes(input) ? "" : "none";
-        });
+        }
     });
+});
 </script>

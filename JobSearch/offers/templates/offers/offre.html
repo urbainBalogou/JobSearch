@@ -6,6 +6,7 @@
 {% block content %}
 
 <style>
+    /* Styles généraux */
     body {
         font-family: 'Poppins', sans-serif;
         margin: 0;
@@ -20,6 +21,7 @@
         margin-bottom: 20px;
     }
 
+    /* Barre de recherche */
     .search-bar {
         text-align: center;
         margin-bottom: 20px;
@@ -41,9 +43,10 @@
         box-shadow: 0 0 10px rgba(0, 91, 187, 0.3);
     }
 
+    /* Liste des offres */
     #car-list {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(3, 1fr); /* 3 images par ligne */
         gap: 20px;
         padding: 20px;
     }
@@ -89,6 +92,33 @@
         background: #0056b3;
     }
 
+    /* Pagination */
+    .pagination {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .pagination a {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 5px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .pagination a:hover {
+        background: #0056b3;
+    }
+
+    .pagination .current {
+        padding: 10px 15px;
+        margin: 5px;
+        background: #ddd;
+        border-radius: 5px;
+    }
+
     @media (max-width: 768px) {
         .search-bar input {
             width: 90%;
@@ -103,34 +133,47 @@
     <input type="text" id="search-input" placeholder="Rechercher par nom, description, rémunération...">
 </div>
 
-<!-- Liste des offres -->
+<!-- Liste des offres paginées -->
 <div id="car-list">
-    {% if offres %}
-    {% for offre in offres %}
-
-    <div class="car" data-search="{{ offre.nom|lower }} {{ offre.description|lower }} {{ offre.renumeration_min }} {{ offre.renumeration_max }}">
-        <h2>{{ offre.nom }}</h2>
-        <p><strong>Description :</strong> {{ offre.description }}</p>
-        <p><strong>Rémunération de base :</strong> {{ offre.renumeration_min }} F CFA</p>
-        <p><strong>Rémunération maximale :</strong> {{ offre.renumeration_max }} F CFA</p>
-        <a href="{{ offre.get_absolute_url }}">Plus de détails</a>
-    </div>
-     {% endfor %}
+    {% if page_obj %}
+        {% for offre in page_obj %}
+        <div class="car" data-search="{{ offre.nom|lower }} {{ offre.description|lower }} {{ offre.renumeration_min }} {{ offre.renumeration_max }}">
+            <h2>{{ offre.nom }}</h2>
+            <p><strong>Description :</strong> {{ offre.description }}</p>
+            <p><strong>Rémunération de base :</strong> {{ offre.renumeration_min }} F CFA</p>
+            <p><strong>Rémunération maximale :</strong> {{ offre.renumeration_max }} F CFA</p>
+            <a href="{{ offre.get_absolute_url }}">Plus de détails</a>
+        </div>
+        {% endfor %}
     {% else %}
-    <h2>Aucune offre pour cette catégorie</h2>
-
+        <h2>Aucune offre pour cette catégorie</h2>
     {% endif %}
-
 </div>
 
+<!-- Pagination -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">Première</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Précédente</a>
+    {% endif %}
+
+    <span class="current">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Suivante</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Dernière</a>
+    {% endif %}
+</div>
+
+<!-- Script de recherche dynamique -->
 <script>
     document.getElementById('search-input').addEventListener('keyup', function () {
         let input = this.value.toLowerCase();
         let offers = document.querySelectorAll('.car');
 
         offers.forEach(function (offer) {
-            let searchText = offer.getAttribute('data-search');
-            offer.style.display = searchText.includes(input) ? "" : "none";
+            let offerName = offer.querySelector('h2').textContent.toLowerCase(); // Recherche uniquement par le nom de l'offre
+            offer.style.display = offerName.includes(input) ? "" : "none"; // Afficher ou cacher l'offre
         });
     });
 </script>

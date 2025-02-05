@@ -29,17 +29,11 @@
                 <ul>
                     <li>
                         <div class="auth-links">
-                            <!--
-                            {% if user.is_authenticated %}
-                                <span>{{ user.username }}</span>
-                                <a href="">Déconnexion</a>
-                            {% else %}
-                                <a href="{% url 'login' %}">Connexion</a>
-                                <a href="{% url 'signup' %}">S'inscrire</a>
-                            {% endif %}-->
+
+
 
                             <a href="">Connexion</a>
-                            <a href="">S'inscrire</a>
+                            <a href="{% url 'choose_account_type' %}">S'inscrire</a>
                         </div>
                     </li>
                 </ul>
@@ -47,13 +41,11 @@
         </div>
     </header>
 
-    {% block content %}
-    {% endblock %}
-
+   <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
 </body>
-<footer>
-        <p>&copy; 2024 Freelance link - Tous droits réservés</p>
-        <p>Tél : (+228) 99 83 45 48 / 90 12 23 57</p>
-</footer>
+
 </html>
