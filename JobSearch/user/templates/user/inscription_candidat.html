@@ -1,151 +1,61 @@
-{% extends 'base.html' %}
-{% load forms_extras %}
 
-{% block title %}Inscription Candidat{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-<style>
-    /* Base CSS */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f7fb;
-}
+  <h2>Inscription Candidat</h2>
+  <form method="POST">
+    {% csrf_token %}
+      <!-- Utilisateur Fields -->
+    <label for="identifiant">Identifiant</label>
+    <input type="text" name="identifiant" required>
 
-/* Container pour le formulaire */
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
+    <label for="email">Email</label>
+    <input type="email" name="email" required>
 
-/* Titre */
-.title {
-    text-align: center;
-    font-size: 2em;
-    color: #333;
-    margin-bottom: 20px;
-}
+    <label for="mot_de_passe">Mot de passe</label>
+    <input type="password" name="mot_de_passe" required>
 
-/* Groupes de formulaire */
-.form-group {
-    margin-bottom: 15px;
-}
+    <label for="role">Role</label>
+    <select name="role" required>
+      <option value="candidat">Candidat</option>
+    </select>
 
-/* Labels */
-.form-label {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-    display: block;
-}
+    <!-- Candidat Fields -->
+    <label for="nom">Nom</label>
+    <input type="text" name="nom" required>
 
-/* Entrées de formulaire */
-.form-input {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    font-size: 1em;
-    border: 2px solid #007bff;
-    border-radius: 5px;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
+    <label for="prenom">Prénom</label>
+    <input type="text" name="prenom" required>
 
-.form-input:focus {
-    border-color: #0056b3;
-}
+    <label for="telephone">Téléphone</label>
+    <input type="text" name="telephone" required>
 
-/* Champ de fichier */
-.form-input-file {
-    width: 100%;
-    padding: 12px;
-    font-size: 1em;
-    color: #555;
-    border: 2px solid #007bff;
-    border-radius: 5px;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
+    <label for="date_naissance">Date de naissance</label>
+    <input type="date" name="date_naissance" required>
 
-/* Bouton soumettre */
-.submit-btn {
-    width: 100%;
-    padding: 12px;
-    font-size: 1.2em;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    <label for="adresse">Adresse</label>
+    <textarea name="adresse" required></textarea>
 
-.submit-btn:hover {
-    background-color: #0056b3;
-}
+    <label for="nationalite">Nationalité</label>
+    <input type="text" name="nationalite" required>
 
-/* Responsivité */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
+    <label for="cv_experience_professionnelle">Expérience professionnelle</label>
+    <textarea name="cv_experience_professionnelle" required></textarea>
 
-    .submit-btn {
-        font-size: 1em;
-    }
-}
+    <label for="cv_formation">Formation</label>
+    <textarea name="cv_formation" required></textarea>
 
-</style>
-    <div class="container">
-        <h2 class="title">Inscription du Candidat</h2>
+    <label for="cv_langues">Langues</label>
+    <textarea name="cv_langues" required></textarea>
 
-        <form method="POST" enctype="multipart/form-data" class="form-container">
-            {% csrf_token %}
+    <label for="cv_competences">Compétences</label>
+    <textarea name="cv_competences" required></textarea>
 
-            <div class="form-group">
-                <label for="id_nom" class="form-label">Nom</label>
-                {{ form.nom }}
-            </div>
+    <label for="cv_secteur_activite">Secteur d'activité</label>
+    <textarea name="cv_secteur_activite" required></textarea>
 
-            <div class="form-group">
-                <label for="id_prenom" class="form-label">Prénom</label>
-                {{ form.prenom}}
-            </div>
+    <button type="submit">S'inscrire</button>
+  </form>
+ {{ form.as_p }}
 
-            <div class="form-group">
-                <label for="id_email" class="form-label">Email</label>
-                {{ form.email }}
-            </div>
-
-            <div class="form-group">
-                <label for="id_date_naissance" class="form-label">Date de naissance</label>
-                {{ form.date_naissance }}
-            </div>
-
-            <div class="form-group">
-                <label for="id_niveau_d_etude" class="form-label">Niveau d'étude</label>
-                {{ form.niveau_d_etude }}
-            </div>
-
-            <div class="form-group">
-                <label for="id_specialite" class="form-label">Spécialité</label>
-                {{ form.specialite }}
-            </div>
-
-            <div class="form-group">
-                <label for="id_cv_ou_attestation" class="form-label">CV ou Attestation</label>
-                {{ form.cv_ou_attestation }}
-            </div>
-
-            <div class="form-group submit-group">
-                <button type="submit" class="submit-btn">Soumettre</button>
-            </div>
-        </form>
-    </div>
 {% endblock %}

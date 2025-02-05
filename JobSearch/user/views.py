@@ -24,4 +24,5 @@ def candidat_registration(request):
     return render(request, 'user/inscription_candidat.html')
 
 def recruteur_registration(request):
-    return HttpResponse("Page pas encore crée")
+    return render(request, 'user/inscription_recruteur.html')
+

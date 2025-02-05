@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Inscription Recruteur</h2>
+  <form method="POST">
+    {% csrf_token %}
+      <!-- Utilisateur Fields -->
+    <label for="identifiant">Identifiant</label>
+    <input type="text" name="identifiant" required>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" required>
+
+    <label for="mot_de_passe">Mot de passe</label>
+    <input type="password" name="mot_de_passe" required>
+
+    <label for="role">Role</label>
+    <select name="role" required>
+      <option value="recruteur">Recruteur</option>
+    </select>
+
+    <!-- Recruteur Fields -->
+    <label for="nom_entreprise">Nom de l'entreprise</label>
+    <input type="text" name="nom_entreprise" required>
+
+    <label for="adresse">Adresse</label>
+    <textarea name="adresse" required></textarea>
+
+    <label for="pays">Pays</label>
+    <input type="text" name="pays" required>
+
+    <label for="description">Description de l'entreprise</label>
+    <textarea name="description" required></textarea>
+
+    <button type="submit">S'inscrire</button>
+  </form>
+    {{ form.as_p }}
+
+
+{% endblock %}
