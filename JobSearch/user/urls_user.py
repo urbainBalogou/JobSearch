@@ -17,10 +17,14 @@ Including another URLconf
 
 from django.urls import path
 from . import views
+from django.urls import path
+
 
 urlpatterns = [
     path('-type-compte/', views.choose_account_type, name='choose_account_type'),
     # Ajoute ici les URL de redirection pour les comptes candidats et recruteurs
     path('candidat-inscription/', views.candidat_registration, name='candidat_registration'),
     path('recruteur-inscription/', views.recruteur_registration, name='recruteur_registration'),
+    path('connexion/', views.connexion_view, name='connexion'),  # Route pour la connexion
+    # Ajoute d'autres vues si nécessaire
 ]
