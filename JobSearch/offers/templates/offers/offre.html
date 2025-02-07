@@ -142,7 +142,8 @@
             <p><strong>Description :</strong> {{ offre.description }}</p>
             <p><strong>Rémunération de base :</strong> {{ offre.renumeration_min }} F CFA</p>
             <p><strong>Rémunération maximale :</strong> {{ offre.renumeration_max }} F CFA</p>
-            <a href="{{ offre.get_absolute_url }}">Plus de détails</a>
+            <a href="{% url 'postuler_offre' offre.id %}">Postuler</a>
+
         </div>
         {% endfor %}
     {% else %}

@@ -20,7 +20,13 @@ from . import views
 
 urlpatterns = [
     path('-type-compte/', views.choose_account_type, name='choose_account_type'),
+    path('logout/', views.logout_user, name='logout'),
+path('login/', views.login_view, name='login'),
     # Ajoute ici les URL de redirection pour les comptes candidats et recruteurs
     path('candidat-inscription/', views.candidat_registration, name='candidat_registration'),
     path('recruteur-inscription/', views.recruteur_registration, name='recruteur_registration'),
+    path('dashboard/', views.dashboard_recruteur, name='dashboard_recruteur'),
+    path('offre/nouvelle/', views.create_offre, name='create_offre'),
+    path('offre/<int:offre_id>/postuler/', views.postuler_offre, name='postuler_offre'),
+
 ]

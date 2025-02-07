@@ -26,7 +26,11 @@ urlpatterns = [
     path('categorie/', views.getCategorie,name="categorie"),
     path('categorie/<int:id>/', views.getOffre,name="offres"),
     path('', include('user.urls_user')),
-    # Ajoute ici les URL de redirection pour les comptes candidats et recruteurs
+    path('', include('user.urls_user')),
+    path('', include('user.urls_user')),
+    path('', include('user.urls_user')),
+    path('', include('user.urls_user')),
+    path('', include('user.urls_user')),
     path('', include('user.urls_user')),
     #path('recruteur-inscription/', views.recruteur_registration, name='recruteur_registration'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

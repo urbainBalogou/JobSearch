@@ -1,40 +1,88 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Inscription Recruteur</h2>
-  <form method="POST">
-    {% csrf_token %}
-      <!-- Utilisateur Fields -->
-    <label for="identifiant">Identifiant</label>
-    <input type="text" name="identifiant" required>
+    <style>
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 
-    <label for="email">Email</label>
-    <input type="email" name="email" required>
+    <div class="container">
+        <h2>Inscription Recruteur</h2>
+        <form method="POST">
+            {% csrf_token %}
 
-    <label for="mot_de_passe">Mot de passe</label>
-    <input type="password" name="mot_de_passe" required>
+            <div class="form-group">
+                <label for="nom_entreprise">Nom de l'entreprise ou recruteur</label>
+                <input type="text" name="nom_entreprise_ou_recruteur" id="nom_entreprise" required>
+            </div>
 
-    <label for="role">Role</label>
-    <select name="role" required>
-      <option value="recruteur">Recruteur</option>
-    </select>
+            <div class="form-group">
+                <label for="prenom">Prénom</label>
+                <input type="text" name="prenom" id="prenom" placeholder="laisser ce champ si vous êtes une entreprise">
+            </div>
 
-    <!-- Recruteur Fields -->
-    <label for="nom_entreprise">Nom de l'entreprise</label>
-    <input type="text" name="nom_entreprise" required>
+            <div class="form-group">
+                <label for="mail">Email</label>
+                <input type="email" name="mail" id="mail" required>
+            </div>
 
-    <label for="adresse">Adresse</label>
-    <textarea name="adresse" required></textarea>
+            <div class="form-group">
+                <label for="domaine_services">Domaine ou Services</label>
+                <textarea name="domaine_ou_services" id="domaine_services" rows="3"></textarea>
+            </div>
 
-    <label for="pays">Pays</label>
-    <input type="text" name="pays" required>
+            <div class="form-group">
+                <label for="situation_geo">Situation géographique</label>
+                <input type="text" name="situation_geographique" id="situation_geo" required>
+            </div>
+            <div class="form-group">
+                <label for="mdp">Mot de passe</label>
+                <input type="text" name="mdp" id="mdp" required>
+            </div>
 
-    <label for="description">Description de l'entreprise</label>
-    <textarea name="description" required></textarea>
+            <div class="form-group">
+                <label for="coordonnees">Coordonnées de localisation</label>
+                <input type="text" name="coordonne_localisation" id="coordonnees">
+            </div>
 
-    <button type="submit">S'inscrire</button>
-  </form>
-    {{ form.as_p }}
-
-
+            <button type="submit" class="btn">S'inscrire</button>
+        </form>
+    </div>
 {% endblock %}

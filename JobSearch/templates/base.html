@@ -14,15 +14,14 @@
     <header>
         <div class="header-content">
             <h1>
-                <a href="">
+                <a href="{% url 'index' %}">
                     <!--img src="{% static 'main/images/img.png' %}" alt="Logo de l'agence"-->
+                    <h6>ACCUEIL</h6>
                 </a>
             </h1>
             <nav>
                 <ul>
-                    <li><a href="">Nos Services</a></li>
-                    <li><a href="">Offres</a></li>
-                    <li><a href="">Contrats</a></li>
+                    <li><a href="{% url 'categorie' %}">Offres</a></li>
                     <li><a href="tel:+22890122357">WhatsApp</a></li>
                     <li><a href="mailto:elonovacar@gmail.com">Email</a></li>
                 </ul>
@@ -31,9 +30,18 @@
                         <div class="auth-links">
 
 
-
-                            <a href="">Connexion</a>
+                            {% if user.is_authenticated and user.type == "recruteur" %}
+                            <p style="color:blue;font-size:25px;margin-right:10px" id="username">{{ user.username }}</p>
+                            <a href="{% url 'dashboard_recruteur' %}">Tableau de bord</a>
+                            <a href="{% url 'logout' %}">Déconnexion</a>
+                            {% elif user.is_authenticated %}
+                            <p style="color:blue;font-size:25px;margin-right:10px" id="username">{{ user.username }}</p>
+                            <a href="{% url 'logout' %}">Déconnexion</a>
+                            {%else%}
+                            <a href="{% url 'login' %}">Connexion</a>
                             <a href="{% url 'choose_account_type' %}">S'inscrire</a>
+                            {% endif %}
+
                         </div>
                     </li>
                 </ul>
@@ -47,5 +55,15 @@
     </main>
 
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let usernameElement = document.getElementById("username");
+        if (usernameElement) {
+            let email = usernameElement.textContent.trim();
+            let username = email.split("@")[0];
+            usernameElement.textContent = username; // Affiche uniquement la partie avant '@'
+        }
+    });
+</script>
 
 </html>
