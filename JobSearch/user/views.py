@@ -189,14 +189,16 @@ def postuler_offre(request, offre_id):
                 post_offre.offre = offre  # Associe l'offre concernée
                 post_offre.deja_poste = True  # Marque la candidature comme envoyée
                 post_offre.save()
-                return redirect('categorie')  # Redirige vers la liste des offres après candidature
+                messages.success(request, "Votre candidature est soumis avec succès")
+                  # Redirige vers la liste des offres après candidature
             except Exception as e:
                 # Capture l'exception spécifique si nécessaire
-                return render(request, 'error.html', {'message': f"Erreur lors de la candidature : {str(e)}"})
+                return render(request, 'user/error.html', {'message': f"Erreur lors de la candidature : {str(e)}"})
         else:
-            return render(request, 'error.html', {'message': "Le formulaire est invalide."})
+            return render(request, 'user/error.html', {'message': "Le formulaire est invalide."})
 
     else:
         form = PostOffreForm()
+
 
     return render(request, 'offers/offre_detail.html', {'form': form, 'offre': offre})

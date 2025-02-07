@@ -1,18 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Postuler pour l'offre : {{ offre.nom }}</h2>
+    <div class="offer-container">
+        <div class="message-container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
 
-<p><strong>Catégorie :</strong> {{ offre.categorie }}</p>
-<p><strong>Description :</strong> {{ offre.description }}</p>
-<p><strong>Rémunération :</strong> {{ offre.renumeration_min }} - {{ offre.renumeration_max }} FCFA</p>
-<p><strong>Type de contrat :</strong> {{ offre.get_type_de_contrat_display }}</p>
+        <h2 class="offer-title">Postuler pour l'offre : <span class="highlight">{{ offre.nom }}</span></h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Postuler</button>
-</form>
+        <div class="offer-details">
+            <p><strong>Catégorie :</strong> {{ offre.categorie }}</p>
+            <p><strong>Description :</strong> {{ offre.description }}</p>
+            <p><strong>Rémunération :</strong> {{ offre.renumeration_min }} - {{ offre.renumeration_max }} FCFA</p>
+            <p><strong>Type de contrat :</strong> {{ offre.get_type_de_contrat_display }}</p>
+        </div>
 
-<a href="{% url 'categorie' %}">Retour aux offres</a>
+        <form method="post" class="application-form">
+            {% csrf_token %}
+            <h3>Formulaire de candidature</h3>
+            {{ form.as_p }}
+            <button type="submit" class="submit-button">Postuler</button>
+        </form>
+
+        <div class="back-link">
+            <a href="{% url 'categorie' %}" class="back-button">Retour aux offres</a>
+        </div>
+    </div>
+
 {% endblock %}
