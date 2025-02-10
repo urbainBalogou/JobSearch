@@ -6,51 +6,49 @@
     <title>Accueil - Freelance Link</title>
     <link rel="stylesheet" href="{% static 'base.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-    </style>
+
+
 </head>
 <body>
+
+
     <header>
-        <div class="header-content">
-            <h1>
-                <a href="{% url 'index' %}">
-                    <!--img src="{% static 'main/images/img.png' %}" alt="Logo de l'agence"-->
-                    <h6>ACCUEIL</h6>
-                </a>
-            </h1>
-            <nav>
-                <ul>
-                    <li><a href="{% url 'categorie' %}">Offres</a></li>
-                    <li><a href="tel:+22890122357">WhatsApp</a></li>
-                    <li><a href="mailto:elonovacar@gmail.com">Email</a></li>
-                </ul>
-                <ul>
-                    <li>
-                        <div class="auth-links">
-
-
-                            {% if user.is_authenticated and user.type == "recruteur" %}
-                            <p style="color:blue;font-size:25px;margin-right:10px" id="username">{{ user.username }}</p>
-                            <a href="{% url 'dashboard_recruteur' %}">Tableau de bord</a>
-                            <a href="{% url 'logout' %}">Déconnexion</a>
-                            {% elif user.is_authenticated %}
-                            <p style="color:blue;font-size:25px;margin-right:10px" id="username">{{ user.username }}</p>
-                            <a href="{% url 'logout' %}">Déconnexion</a>
-                            {%else%}
-                            <a href="{% url 'login' %}">Connexion</a>
-                            <a href="{% url 'choose_account_type' %}">S'inscrire</a>
-                            {% endif %}
-
-                        </div>
-                    </li>
-                </ul>
-            </nav>
+        <header class="bg-gray-800 text-white">
+    <div class="container mx-auto p-4 flex justify-between items-center">
+        <h1>
+            <a href="{% url 'index' %}" class="text-lg font-semibold">ACCUEIL</a>
+        </h1>
+        <nav class="flex space-x-4">
+            <ul class="flex space-x-4">
+                <li><a href="{% url 'categorie' %}" class="hover:text-gray-300">Offres</a></li>
+                <li><a href="tel:+22890122357" class="hover:text-gray-300">WhatsApp</a></li>
+                <li><a href="mailto:elonovacar@gmail.com" class="hover:text-gray-300">Email</a></li>
+            </ul>
+        </nav>
+        <div class="flex items-center space-x-4">
+            {% if user.is_authenticated %}
+                <p class="text-blue-400 text-lg font-medium" id="username">{{ user.username }}</p>
+                {% if user.type == "recruteur" %}
+                    <a href="{% url 'dashboard_recruteur' %}" class="bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600">
+                        Tableau de bord
+                    </a>
+                {% endif %}
+                <a href="{% url 'logout' %}" class="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600">Déconnexion</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="bg-green-500 px-4 py-2 rounded-md hover:bg-green-600">Connexion</a>
+                <a href="{% url 'choose_account_type' %}" class="bg-yellow-500 px-4 py-2 rounded-md hover:bg-yellow-600">S'inscrire</a>
+            {% endif %}
         </div>
+    </div>
+</header>
     </header>
 
    <main>
         {% block content %}
+        <img src="jobsearch/jobsearch/jobsearch/static/images/WhatsApp Image 2024-11-11 à 14.30.27_a3c75dc3">
+
         {% endblock %}
     </main>
 
