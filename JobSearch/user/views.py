@@ -167,7 +167,7 @@ def create_offre(request):
 @login_required
 def postuler_offre(request, offre_id):
 
-    if request.user.type == 'recruteur':  # Remplace 'role' et 'recruteur' par tes propres noms de champ et valeur
+    if request.user.type != 'candidat':  # Remplace 'role' et 'recruteur' par tes propres noms de champ et valeur
         return render(request, 'user/error.html', {'message': "Les recruteurs ne peuvent pas postuler à cette offre."})
     print(request.user.type)
     candidat = get_object_or_404(Candidat, user=request.user)  # Vérifie si l'utilisateur est un candidat
